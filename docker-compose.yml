@@ -4,17 +4,20 @@ services:
     #
     # MySQL
     #
-    #mysql:
-    #    restart: unless-stopped
-    #    build:
-    #        context: ./.devops/mysql
-    #        dockerfile: ./Dockerfile
-    #    image: prytoegrian/mysql
-    #    container_name: mysql
-    #    expose:
-    #        - 3306
-    #    networks:
-    #        - inner
+    mysql:
+        restart: unless-stopped
+        build:
+            context: ./.devops/mysql
+            dockerfile: ./Dockerfile
+        image: prytoegrian/mysql
+        container_name: mysql
+        environment:
+           MYSQL_ROOT_PASSWORD: root
+           MYSQL_DATABASE: storage
+        expose:
+            - 3306
+        networks:
+            - inner
 
     #
     # Apache
@@ -30,12 +33,10 @@ services:
             - 8080:80
         networks:
             - inner
-    #    links:
-    #        - mysql:mysql
-    #        - ldap:ldap
-    #    depends_on:
-    #        - mysql
-    #        - ldap
+        links:
+            - mysql:mysql
+        depends_on:
+            - mysql
         volumes:
             - .:/var/www/html
 
