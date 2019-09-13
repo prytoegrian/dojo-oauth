@@ -1,14 +1,17 @@
-<?php
+<?php declare(strict_types = 1);
 
 define('DS', DIRECTORY_SEPARATOR);
 
 require_once dirname(__DIR__) . DS . 'vendor' . DS . 'autoload.php';
+ini_set('display_errors', '1');error_reporting(E_ALL);
 
+use Chadicus\Slim\OAuth2\Middleware;
 use Chadicus\Slim\OAuth2\Routes;
 use OAuth2\GrantType;
 use OAuth2\Storage;
 use Slim\Views\PhpRenderer;
-
+use Psr\Http\Message\ServerRequestInterface as IRequest;
+use Psr\Http\Message\ResponseInterface as IResponse;
 
 // Create and configure Slim app
 $config = ['settings' => [
@@ -19,8 +22,8 @@ $config = ['settings' => [
 $app = new \Slim\App($config);
 
 // Init route
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    return $response->write("Hello " . $args['name']);
+$app->get('/hello/{name}', function (IRequest $req, IResponse $resp, array $args) : IResponse {
+    return $resp->write('Hello ' . $args['name']);
 });
 
 //Set-up the OAuth2 Server
@@ -29,20 +32,36 @@ $username = 'root';
 $password = 'root';
 $storage = new Storage\Pdo(['dsn' => $dsn, 'username' => $username, 'password' => $password]);
 $server = new OAuth2\Server($storage);
-$server->addGrantType(new GrantType\AuthorizationCode($storage));
-$server->addGrantType(new GrantType\ClientCredentials($storage));
+$authorizationCode = new GrantType\AuthorizationCode($storage);
+$clientCredentials = new GrantType\ClientCredentials($storage);
+// specify your audience (typically, the URI of the oauth server)
+$audience = 'http://localhost:8080';
+$jwtBearer = new GrantType\JwtBearer($storage, $audience);
+$refreshToken = new GrantType\RefreshToken($storage);
+$password = new GrantType\UserCredentials($storage);
 
-$container = $app->getContainer();
-//var_dump($container);exit();
+$server->addGrantType($authorizationCode);
+$server->addGrantType($clientCredentials);
+$server->addGrantType($password);
+$server->addGrantType($refreshToken);
 
-$app->map(['GET', 'POST'], Routes\Authorize::ROUTE, new Routes\Authorize($server, $container['view']))->setName('authorize');
+// Global authorization and scoped route
+$authorization = new Middleware\Authorization($server, $app->getContainer());
+
+// Oauth routes
+$app->map(['GET', 'POST'], Routes\Authorize::ROUTE, new Routes\Authorize($server, $config['view']))->setName('authorize');
 $app->post(Routes\Token::ROUTE, new Routes\Token($server))->setName('token');
-$app->map(['GET', 'POST'], Routes\ReceiveCode::ROUTE, new Routes\ReceiveCode($container['view']))->setName('receive-code');
+$app->map(['GET', 'POST'], Routes\ReceiveCode::ROUTE, new Routes\ReceiveCode($config['view']))->setName('receive-code');
 $app->post(Routes\Revoke::ROUTE, new Routes\Revoke($server))->setName('revoke');
 
+
+$app->get('/secret-route', function (IRequest $req, IResponse $resp, array $args) : IResponse {
+    return $resp->write('This is a secret route');
+})->add($authorization);
+
 // Catch all route
-$app->get('/', function ($request, $response, $args) {
-    return $response->write("H");
+$app->get('/', function (IRequest $req, IResponse $resp, array $args) : IResponse {
+    return $resp->write('Hello world !');
 });
 
 // Run app
