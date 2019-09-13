@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5fe370cf0152e4f816a44d13d2369ef",
+    "content-hash": "e35b793f3e54655211afb0c31d7d1b93",
     "packages": [
         {
             "name": "bshaffer/oauth2-server-php",
@@ -755,6 +755,41 @@
                 "response"
             ],
             "time": "2018-10-30T17:12:04+00:00"
+        },
+        {
+            "name": "slim/php-view",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/slimphp/PHP-View.git",
+                "reference": "681cdf10cf8ca917a1f9146e78b382d02fc2e80a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/slimphp/PHP-View/zipball/681cdf10cf8ca917a1f9146e78b382d02fc2e80a",
+                "reference": "681cdf10cf8ca917a1f9146e78b382d02fc2e80a",
+                "shasum": ""
+            },
+            "require": {
+                "slim/slim": "^3.0.0-RC1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Geggleto\\Renderer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Glenn Eggleton",
+                    "email": "geggleto@gmail.com"
+                }
+            ],
+            "time": "2015-10-01T17:55:08+00:00"
         },
         {
             "name": "slim/slim",

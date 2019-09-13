@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+    #
+    # MySQL
+    #
+    #mysql:
+    #    restart: unless-stopped
+    #    build:
+    #        context: ./.devops/mysql
+    #        dockerfile: ./Dockerfile
+    #    image: prytoegrian/mysql
+    #    container_name: mysql
+    #    expose:
+    #        - 3306
+    #    networks:
+    #        - inner
+
+    #
+    # Apache
+    #
+    web:
+        restart: unless-stopped
+        build:
+            context: ./.devops/web
+            dockerfile: ./Dockerfile
+        image: prytoegrian/web
+        container_name: web
+        ports:
+            - 8080:80
+        networks:
+            - inner
+    #    links:
+    #        - mysql:mysql
+    #        - ldap:ldap
+    #    depends_on:
+    #        - mysql
+    #        - ldap
+        volumes:
+            - .:/var/www/html
+
+networks:
+    inner:
