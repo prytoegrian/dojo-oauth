@@ -74,6 +74,14 @@ INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, 
 INSERT INTO oauth_users (username, password, first_name, last_name, email, email_verified, scope) VALUES ('username', sha1('password'), 'first_name_1', 'last_name_1', 'email_1', 2, '');
 INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_password', 'client_password_secret', '', 'password', '', '98');
 
+-- grant_type password with scope
+INSERT INTO oauth_users (username, password, first_name, last_name, email, email_verified, scope) VALUES ('username_scoped', sha1('password_scoped'), 'first_name_2', 'last_name_2', 'email_1', 2, 'read-only');
+
 -- grant_type refresh_token
-INSERT INTO oauth_users (username, password, first_name, last_name, email, email_verified, scope) VALUES ('username_refresh', sha1('password_refresh'), 'first_name_2', 'last_name_2', 'email_2', 100, '');
-INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_refresh', 'client_refresh_secret', '', 'password refresh_token', '', '298');
+-- INSERT INTO oauth_users (username, password, first_name, last_name, email, email_verified, scope) VALUES ('username_refresh', sha1('password_refresh'), 'first_name_2', 'last_name_2', 'email_2', 100, '');
+-- INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_refresh', 'client_refresh_secret', '', 'password refresh_token', '', '298');
+
+-- grant_type jwt
+INSERT INTO oauth_jwt (client_id, subject, public_key) VALUES ('client_jwt', 'client_jwt_secret', 'client_jwt_public_key');
+INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_jwt', 'client_jwt_secret', '', 'urn:ietf:params:oauth:grant-type:jwt-bearer', '', '9812');
+
