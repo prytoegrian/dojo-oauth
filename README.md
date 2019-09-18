@@ -1,4 +1,8 @@
-## Démarrage
+# Dojo Oauth
+Ce repo a pour objectif de fournir un support de formation pour comprendre ce qu'est Oauth et comment il s'utilise.
+
+## Installation et informations générales
+### Démarrage
 
 Lancer le serveur avec:
 ```sh
@@ -25,7 +29,7 @@ make start
 make stop
 ```
 
-## Token
+### Token
 curl http://oauth.local:8080/token -d 'grant_type=authorization_code&client_id=TestClient&client_secret=TestSecret&code=xyz&redirect_uri=http://example.org'
 curl http://oauth.local:8080/token -d 'grant_type=password&client_id=TestClient&username=bshaffer&password=brent123'
 curl http://oauth.local:8080/token -d 'grant_type=client_credentials&client_id=TestClient&client_secret=TestSecret'
@@ -34,15 +38,15 @@ curl http://oauth.local:8080/token -d 'grant_type=urn:ietf:params:oauth:grant-ty
 
 https://oauth.net/2/grant-types/password/ : when the client is trusted, as the user's password is transmitted.
 
-## Authorization
+### Authorization
 curl http://oauth.local:8080/authorize?response_type=code&client_id=TestClient&redirect_uri=https://myredirecturi.com/cb
 https://myredirecturi.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz
 curl http://localhost:8080/token -d 'grant_type=authorization_code&client_id=TestClient&client_secret=TestSecret&code=xyz'
 
-## Accéder à une route authentifiée
+### Accéder à une route authentifiée
 Mettre dans un header `Authorization: Bearer AccessToken`
 
-## JWT life cycle
+### JWT life cycle
 https://jwt.io/
 client_id en payload.iss
 subject en payload.sub
