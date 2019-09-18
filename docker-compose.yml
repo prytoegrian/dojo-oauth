@@ -9,8 +9,8 @@ services:
         build:
             context: ./.devops/mysql
             dockerfile: ./Dockerfile
-        image: prytoegrian/mysql
-        container_name: mysql
+        image: prytoegrian/oauth-mysql
+        container_name: oauth-mysql
         environment:
            MYSQL_ROOT_PASSWORD: root
            MYSQL_DATABASE: storage
@@ -27,8 +27,8 @@ services:
         build:
             context: ./.devops/web
             dockerfile: ./Dockerfile
-        image: prytoegrian/web
-        container_name: web
+        image: prytoegrian/oauth-web
+        container_name: oauth-web
         ports:
             - 8080:80
         networks:

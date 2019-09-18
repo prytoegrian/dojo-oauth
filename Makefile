@@ -7,8 +7,14 @@ up:
 down:
 	docker-compose down
 
+start:
+	docker-compose start
+
+stop:
+	docker-compose stop
+
 attach-web:
-	docker exec -ti web bash
+	docker exec -ti oauth-web bash
 
 attach-mysql:
-	docker exec -ti mysql mysql -u root -proot
+	docker exec -ti oauth-mysql mysql -u root -proot

@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS storage;
+CREATE DATABASE IF NOT EXISTS storage;
 use storage;
 
 CREATE TABLE oauth_clients (
