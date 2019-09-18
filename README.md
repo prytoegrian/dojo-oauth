@@ -39,6 +39,9 @@ curl http://oauth.local:8080/authorize?response_type=code&client_id=TestClient&r
 https://myredirecturi.com/cb?code=SplxlOBeZQQYbYS6WxSbIA&state=xyz
 curl http://localhost:8080/token -d 'grant_type=authorization_code&client_id=TestClient&client_secret=TestSecret&code=xyz'
 
+## Accéder à une route authentifiée
+Mettre dans un header `Authorization: Bearer AccessToken`
+
 ## JWT life cycle
 https://jwt.io/
 client_id en payload.iss

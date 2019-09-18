@@ -48,7 +48,9 @@ $server->addGrantType($clientCredentials);
 $server->addGrantType($password);
 $server->addGrantType($jwtBearer);
 
-// Global authorization and scoped route
+//
+// Global authorization and scoped route middlware
+//
 $authorization = new Middleware\Authorization($server, $app->getContainer());
 
 //
@@ -62,13 +64,12 @@ $app->post(Routes\Revoke::ROUTE, new Routes\Revoke($server))->setName('revoke');
 //
 // Routes definition
 //
-// Init route
-$app->get('/hello/{name}', function (IRequest $req, IResponse $resp, array $args) : IResponse {
-    return $resp->write('Hello ' . $args['name']);
-});
-
 $app->get('/secret-route', function (IRequest $req, IResponse $resp, array $args) : IResponse {
     return $resp->write('This is a secret route');
+});
+
+$app->get('/inner-scoped-route', function (IRequest $req, IResponse $resp, array $args) : IResponse {
+    return $resp->write('This is a inner scoped route');
 });
 
 // Catch all route
