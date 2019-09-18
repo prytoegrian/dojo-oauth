@@ -14,8 +14,10 @@ use Psr\Http\Message\ServerRequestInterface as IRequest;
 use Psr\Http\Message\ResponseInterface as IResponse;
 
 // Create and configure Slim app
-$config = ['settings' => [
+$config = [
+    'settings' => [
         'addContentLengthHeader' => false,
+        'displayErrorDetails' => true,
     ],
     'view' => new PHPRenderer('/vendor/chadicus/slim-oauth2-routes/templates'),
 ];
@@ -66,5 +68,3 @@ $app->get('/', function (IRequest $req, IResponse $resp, array $args) : IRespons
 
 // Run app
 $app->run();
-
-

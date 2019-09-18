@@ -63,7 +63,17 @@ CREATE TABLE oauth_jwt (
     public_key          VARCHAR(2000)   NOT NULL
 );
 
-INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_1', 'client_secret_1', '', 'client_credentials', '', '5');
+-- grant_type client_credentials
+INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_client', 'client_client_secret', '', 'client_credentials', '', '5');
 
-INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('912837', 'password_rand', '', 'client_credentials password', '', 'myId');
-INSERT INTO oauth_users (username, password, first_name, last_name, email, email_verified, scope) VALUES ('912837', sha1('password_rand'), 'first_name_2', 'last_name_2', 'email_2', 2, '');
+-- grant_type auth_code
+insert into oauth_authorization_codes (authorization_code, client_id, user_id, redirect_uri, expires, scope, id_token) values ('auth_code_1', 'client_auth_code', 'user_auth_code', 'http://example.org', '2019-10-20', 'test', 42);
+INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_auth_code', 'client_auth_code_secret', '', 'authorization_code', '', '8');
+
+-- grant_type password
+INSERT INTO oauth_users (username, password, first_name, last_name, email, email_verified, scope) VALUES ('username', sha1('password'), 'first_name_1', 'last_name_1', 'email_1', 2, '');
+INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_password', 'client_password_secret', '', 'password', '', '98');
+
+-- grant_type refresh_token
+INSERT INTO oauth_users (username, password, first_name, last_name, email, email_verified, scope) VALUES ('username_refresh', sha1('password_refresh'), 'first_name_2', 'last_name_2', 'email_2', 100, '');
+INSERT INTO oauth_clients (client_id, client_secret, redirect_uri, grant_types, scope, user_id) VALUES ('client_refresh', 'client_refresh_secret', '', 'password refresh_token', '', '298');
