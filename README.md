@@ -30,11 +30,11 @@ make stop
 ```
 
 ### Token
-curl http://oauth.local:8080/token -d 'grant_type=authorization_code&client_id=TestClient&client_secret=TestSecret&code=xyz&redirect_uri=http://example.org'
-curl http://oauth.local:8080/token -d 'grant_type=password&client_id=TestClient&username=bshaffer&password=brent123'
-curl http://oauth.local:8080/token -d 'grant_type=client_credentials&client_id=TestClient&client_secret=TestSecret'
-curl http://oauth.local:8080/token -d 'grant_type=refresh_token&client_id=TestClient&client_secret=TestSecret&refresh_token=tGzv3JOkF0XG5Qx2TlKWIA'
-curl http://oauth.local:8080/token -d 'grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=Jwt'
+curl http://oauth.local:8080/token -d 'grant_type=authorization_code&client_id=TestClient&client_secret=TestSecret&code=xyz&redirect_uri=http://example.org'  
+curl http://oauth.local:8080/token -d 'grant_type=password&client_id=TestClient&username=bshaffer&password=brent123'  
+curl http://oauth.local:8080/token -d 'grant_type=client_credentials&client_id=TestClient&client_secret=TestSecret'  
+curl http://oauth.local:8080/token -d 'grant_type=refresh_token&client_id=TestClient&client_secret=TestSecret&refresh_token=tGzv3JOkF0XG5Qx2TlKWIA'  
+curl http://oauth.local:8080/token -d 'grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=Jwt'  
 
 https://oauth.net/2/grant-types/password/ : when the client is trusted, as the user's password is transmitted.
 
